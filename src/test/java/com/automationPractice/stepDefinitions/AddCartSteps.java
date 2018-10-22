@@ -3,6 +3,7 @@ package com.automationPractice.stepDefinitions;
 import com.automationPractice.driver.WebDriverFactory;
 import com.automationPractice.pages.*;
 import com.automationPractice.utility.LoadConfigClass;
+import com.google.common.base.Verify;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -94,6 +95,27 @@ public class AddCartSteps extends AbstractSteps {
 
     }
 
+    @And("^I sort the dresses by highest price$")
+    public void iSortTheDressesBy()
+    {
+        dressesPage = myAccountPage.clickOnDressesMenu();
+        dressesPage.sortByPriceHighToLow();
+    }
+
+    @And("^the prices are sorted in (.*) order$")
+    public void thePricesAreSorted(String order)
+    {
+
+        Assert.assertEquals(true,dressesPage.AreProductsSortedByPrice(order));
+    }
+
+    @And("^I add the first dress after sorting$")
+    public void iAddTheFirstDressAfterSorting()
+    {
+        shoppingCartSummaryPage=dressesPage.AddMaxValueDressToCartAfterSorting();
+    }
+
+
     @And("^I sign out of my account$")
     public void iSignOutOfMyAccount() {
         logger.info("Logging out of my account");
@@ -102,6 +124,8 @@ public class AddCartSteps extends AbstractSteps {
         webDriver.quit();
 
     }
+
+
 
     @And("^I log back into my account$")
     public void iLogBackIntoMyAccount()
