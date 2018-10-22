@@ -106,7 +106,7 @@ public class AddCartSteps extends AbstractSteps {
     public void thePricesAreSorted(String order)
     {
 
-        Assert.assertEquals(true,dressesPage.AreProductsSortedByPrice(order));
+        Assert.assertEquals("The products are not sorted in the order "+ order,true,dressesPage.AreProductsSortedByPrice(order));
     }
 
     @And("^I add the first dress after sorting$")

@@ -19,7 +19,7 @@ Feature: Add a dress with maximum price to cart
       Given I am on the signIn or create account page
       And I login using email devadathpt@gmail.com and password Swaroopa@123
       And I sort the dresses by highest price
-#      And the prices are sorted in descending order
+      And the prices are sorted in descending order
       And I add the first dress after sorting
 #      And I add a dress of highest price to my cart
       And I sign out of my account
