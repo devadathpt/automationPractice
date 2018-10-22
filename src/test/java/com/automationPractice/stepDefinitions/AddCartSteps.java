@@ -3,13 +3,13 @@ package com.automationPractice.stepDefinitions;
 import com.automationPractice.driver.WebDriverFactory;
 import com.automationPractice.pages.*;
 import com.automationPractice.utility.LoadConfigClass;
-import com.google.common.base.Verify;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.assertj.core.api.SoftAssertions;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
 
@@ -35,6 +35,7 @@ public class AddCartSteps extends AbstractSteps {
     private ShoppingCartSummaryPage shoppingCartSummaryPage;
     private String email;
     private Properties config = null;
+
 
     private static String getRandomString(int length) {
         return RandomStringUtils.randomAlphabetic(length);
@@ -106,7 +107,14 @@ public class AddCartSteps extends AbstractSteps {
     public void thePricesAreSorted(String order)
     {
 
-        Assert.assertEquals("The products are not sorted in the order "+ order,true,dressesPage.AreProductsSortedByPrice(order));
+
+try {
+    Assert.assertEquals(true, dressesPage.AreProductsSortedByPrice(order));
+}
+catch (AssertionError e) {
+    logger.info("The products are not sorted in the order " + order);
+    webDriver.quit();
+}
     }
 
     @And("^I add the first dress after sorting$")
@@ -177,5 +185,4 @@ public class AddCartSteps extends AbstractSteps {
         long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
         return Long.toString(l, Character.MAX_RADIX);
     }
-
-}
+    }
